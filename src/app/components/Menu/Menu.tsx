@@ -60,6 +60,7 @@ const Menu = forwardRef<
     mncircles.forEach((circle, idx) => {
       circle.addEventListener("click", () => {
         navigateToSection(idx + 1);
+        scrollSound.play();
       });
     });
 
@@ -85,6 +86,7 @@ const Menu = forwardRef<
         ease: "power1.out",
         duration: 0.3,
       });
+      scrollSound.play();
     }
 
     function setActiveSection(index: number) {
