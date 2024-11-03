@@ -2,20 +2,315 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inconsolata", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Hide overflow from the body */
+  background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+  color: #ffffff;
+}
+
+#main {
+  width: 100%;
+  height: 100%;
+  background: none;
+  overflow: hidden;
+}
+
+#main.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  overflow: hidden;
+}
+
+.container {
+  max-width: 75rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  z-index: 2;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header .navbar .toggle {
+  position: absolute;
+  width: 2rem;
+  height: 1.4rem;
+  top: 2.25rem;
+  right: 2.7rem;
+  z-index: 2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+}
+
+.header .navbar .toggle-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
+  width: 1.6rem;
+  height: 2px;
+  background: #ffffff; /* Replace $color-dark with your desired color */
+  transition: all 0.3s ease;
+}
+
+.header .navbar .toggle-btn::before {
+  content: "";
+  position: absolute;
+  top: -0.5rem;
+  width: 2rem;
+  height: 2px;
+  background: #ffffff; /* Replace $color-dark with your desired color */
+  transition: all 0.3s ease;
+}
+
+.header .navbar .toggle-btn::after {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  width: 1.2rem;
+  height: 2px;
+  background: #ffffff; /* Replace $color-dark with your desired color */
+  transition: all 0.3s ease;
+}
+
+.header .navbar .toggle-btn.open {
+  transform: rotate(720deg);
+  background: transparent;
+}
+
+.header .navbar .toggle-btn.open::before {
+  transform: rotate(45deg) translate(5px, 8px);
+}
+
+.header .navbar .toggle-btn.open::after {
+  width: 2rem;
+  transform: rotate(-45deg) translate(3px, -6px);
+}
+
+#circle {
+  position: absolute;
+  left: -115vh; /* Original left property */
+  top: 50%;
+  transform: translate(0, -50%) rotate(100deg);
+  width: 200vh;
+  height: 200vh;
+  border: 2px solid #3d5a80;
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
+
+.stripe-container {
+  overflow: hidden;
+}
+
+.stripe {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(0, -50%);
+  width: 60%;
+  height: 80px;
+  transform-origin: -32% 50%;
+  overflow: visible; /* Make sure stripes are visible */
+}
+
+.str1 {
+  transform: translate(0, -50%) rotate(-30deg);
+}
+.str2 {
+  transform: translate(0, -50%) rotate(-15deg);
+}
+.str4 {
+  transform: translate(0, -50%) rotate(15deg);
+}
+.str5 {
+  transform: translate(0, -50%) rotate(30deg);
+}
+
+.first {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+
+.smcircle {
+  position: absolute;
+  right: -0.4vw;
+  top: 62%;
+  transform: translate(0, -50%);
+  width: 0.5vw;
+  height: 0.5vw;
+  background-color: #98c1d9;
+  border-radius: 50%;
+}
+
+.sec {
+  padding-left: 50px;
+  width: 50%;
+  height: 100%;
+}
+
+.sec h4 {
+  font-size: 5vw;
+  color: #ffffff;
+  opacity: 1;
+  transition: opacity 0.5s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  width: 80%;
+}
+
+.sec .title {
+  display: inline-block;
+  font-weight: 600;
+  color: #ffffff;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+
+.sec.active h4,
+.sec.active .title {
+  opacity: 1;
+}
+
+#panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 5%;
+  height: 20%;
+}
+
+.mncircle {
+  border-radius: 50%;
+  width: 1vw;
+  height: 1vw;
+  opacity: 0.05;
+  background-color: #98c1d9;
+  cursor: pointer;
+}
+
+.mncircle:hover {
+  opacity: 0.4;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For tablets and smaller laptops */
+@media (max-width: 1024px) {
+  #circle {
+    width: 150vh;
+    height: 150vh;
+    left: -80vh; /* Adjust positioning for smaller screens */
+  }
+
+  .sec h4 {
+    font-size: 6vw;
+  }
+
+  #panel {
+    width: 7%;
+  }
+
+  .mncircle {
+    width: 1.5vw;
+    height: 1.5vw;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@media (min-width: 1024px) {
+  .header .navbar .toggle {
+    margin-right: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  #circle {
+    width: 140vh;
+    height: 140vh;
+    left: -75vh; /* Adjust positioning for smaller screens */
+  }
+}
+
+/* For mobile screens */
+@media (max-width: 768px) {
+  #circle {
+    width: 120vh;
+    height: 120vh;
+    left: -7  0vh; /* Adjust positioning for smaller screens */
+  }
+
+  .stripe {
+    height: 40px;
+  }
+
+  .sec h4 {
+    font-size: 7vw;
+  }
+
+  .sec {
+    padding-left: 20px;
+  }
+
+  #panel {
+    width: 10%;
+  }
+
+  .mncircle {
+    width: 2vw;
+    height: 2vw;
+  }
+}
+
+/* For compact smartphones */
+@media (max-width: 480px) {
+  #circle {
+    width: 100vh;
+    height: 100vh;
+    left: -80vh; /* Adjust positioning for smaller screens */
+  }
+
+  .stripe {
+    height: 30px;
+  }
+
+  .sec h4 {
+    font-size: 7.5vw;
+  }
+
+  .sec {
+    padding-left: 15px;
+  }
+
+  #panel {
+    width: 15%;
+  }
+
+  .mncircle {
+    width: 2vw;
+    height: 2vw;
+  }
 }
