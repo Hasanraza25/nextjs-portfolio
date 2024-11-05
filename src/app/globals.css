@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+
 *,
 *::after,
 *::before {
@@ -16,38 +17,17 @@ html,
 body {
   width: 100%;
   height: 100%;
-  overflow: hidden; /* Hide overflow from the body */
+  overflow: hidden;
   background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
   color: #ffffff;
-}
-
-#main {
-  width: 100%;
-  height: 100%;
-  background: none;
-  overflow: hidden;
-}
-
-#main.open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  overflow: hidden;
-}
-
-.container {
-  max-width: 75rem;
-  width: 100%;
-  margin: 0 auto;
 }
 
 .header {
   z-index: 2;
   width: 100%;
-  margin: 0 auto;
 }
 
-.header .navbar .toggle {
+.toggle {
   position: absolute;
   width: 2rem;
   height: 1.4rem;
@@ -59,49 +39,50 @@ body {
   margin: 0 auto;
 }
 
-.header .navbar .toggle-btn {
+.toggle-btn {
   position: absolute;
   top: 0.5rem;
   right: 0;
   width: 1.6rem;
   height: 2px;
-  background: #ffffff; /* Replace $color-dark with your desired color */
+  background: #ffffff;
   transition: all 0.3s ease;
 }
 
-.header .navbar .toggle-btn::before {
+.toggle-btn::before {
   content: "";
   position: absolute;
   top: -0.5rem;
   width: 2rem;
   height: 2px;
-  background: #ffffff; /* Replace $color-dark with your desired color */
+  background: #ffffff;
   transition: all 0.3s ease;
 }
 
-.header .navbar .toggle-btn::after {
+.toggle-btn::after {
   content: "";
   position: absolute;
   top: 0.5rem;
   width: 1.2rem;
   height: 2px;
-  background: #ffffff; /* Replace $color-dark with your desired color */
+  background: #ffffff;
   transition: all 0.3s ease;
 }
 
-.header .navbar .toggle-btn.open {
+.toggle-btn.open {
   transform: rotate(720deg);
   background: transparent;
 }
 
-.header .navbar .toggle-btn.open::before {
+.toggle-btn.open::before {
   transform: rotate(45deg) translate(5px, 8px);
 }
 
-.header .navbar .toggle-btn.open::after {
+.toggle-btn.open::after {
   width: 2rem;
   transform: rotate(-45deg) translate(3px, -6px);
 }
+
 
 #circle {
   position: absolute;

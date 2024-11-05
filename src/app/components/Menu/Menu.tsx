@@ -8,7 +8,6 @@ import MenuButton from "./MenuButton";
 
 const scrollSound = new Howl({
   src: ["/sounds/scroll.mp3"], // Update with your sound file path
-  volume: 0.5, // Adjust the volume as needed
 });
 
 

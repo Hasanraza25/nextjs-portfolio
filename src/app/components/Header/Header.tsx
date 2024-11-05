@@ -12,11 +12,11 @@ const multiPop = new Howl({
 });
 
 const popDown = new Howl({
-  src : ["/sounds/pop-down.mp3"],
+  src: ["/sounds/pop-down.mp3"],
 });
 
-interface HeaderProps{
-  onMenuToggle: (inVisible : boolean)=> void
+interface HeaderProps {
+  onMenuToggle: (inVisible: boolean) => void;
 }
 
 const Header = ({ onMenuToggle }: HeaderProps) => {
@@ -24,7 +24,6 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
 
-  // Function to toggle the menu
   const toggleMenu = () => {
     if (!menuVisible) {
       showMenu();
@@ -33,54 +32,42 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
       hideMenu();
       popDown.play();
     }
-
-    onMenuToggle(!menuVisible)
+    onMenuToggle(!menuVisible);
   };
 
   const showMenu = () => {
     setMenuVisible(true);
-  
-    // Animate the circle from bottom to top
     gsap.fromTo(
       circleRef.current,
       { y: "100vh", opacity: 0 },
       { y: "0vh", opacity: 1, duration: 1, ease: "power2.out" }
     );
-  
-    // Animate the menu items after a delay
     gsap.fromTo(
       mainRef.current,
       { opacity: 0 },
       { opacity: 1, delay: 1, duration: 0.5, ease: "power2.out" }
     );
-  
     document.body.style.overflow = "hidden";
   };
-  
 
   const hideMenu = () => {
-   
     gsap.to(circleRef.current, {
-      opacity: 0, 
-      duration: .5,
-      ease: "power2.in",
-      rotate: '180',
-      onComplete: () => setMenuVisible(false),
-    });
-
-    gsap.to(mainRef.current, {
-      opacity: 0, // Fade out the menu items
+      opacity: 0,
       duration: 0.5,
       ease: "power2.in",
-      onComplete: () => setMenuVisible(false), // Hide the menu after the animation
+      rotate: "180",
+      onComplete: () => setMenuVisible(false),
     });
-
+    gsap.to(mainRef.current, {
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.in",
+      onComplete: () => setMenuVisible(false),
+    });
     onMenuToggle(false);
-
     document.body.style.overflow = "auto";
   };
 
-  // Handle keydown for "Escape" key
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape" && menuVisible) {
@@ -91,7 +78,6 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
     [menuVisible]
   );
 
-  // Adding and cleaning up event listeners
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -100,32 +86,30 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
   }, [handleKeyDown]);
 
   return (
-    <header className="header">
-      <nav className="navbar">
-        <div className="container">
-          {/* Header Title */}
-          <div className="brand">
-            <Image
-              src="/logo.svg"
-              alt="Logo - Hasan Raza"
-              width={100}
-              height={100}
-            />
-          </div>
-
-          {/* Hamburger Icon to Toggle Menu */}
-          <div className="toggle cursor-pointer" onClick={toggleMenu}>
-            <span className={`toggle-btn ${menuVisible ? "open" : ""}`}></span>
-          </div>
-
-          {/* Menu Component */}
-          {menuVisible && (
-            <div ref={mainRef}>
-              <Menu circleRef={circleRef} />
-            </div>
-          )}
+    <header className="header w-full py-2">
+      <div className="container mx-auto flex items-center justify-between relative">
+        {/* Logo */}
+        <div className="brand flex-shrink-0">
+          <Image
+            src="/logo.svg"
+            alt="Logo - Hasan Raza"
+            width={100}
+            height={100}
+          />
         </div>
-      </nav>
+
+        {/* Menu Toggle Icon */}
+        <div className="toggle cursor-pointer flex-shrink-0" onClick={toggleMenu}>
+          <span className={`toggle-btn ${menuVisible ? "open" : ""}`}></span>
+        </div>
+
+      </div>
+        {/* Menu */}
+        {menuVisible && (
+          <div ref={mainRef}>
+            <Menu circleRef={circleRef} />
+          </div>
+        )}
     </header>
   );
 };
