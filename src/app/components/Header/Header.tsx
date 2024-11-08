@@ -47,25 +47,33 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
       { opacity: 0 },
       { opacity: 1, delay: 1, duration: 0.5, ease: "power2.out" }
     );
+
+    // Disable scrolling when the menu is open
     document.body.style.overflow = "hidden";
   };
 
   const hideMenu = () => {
+    // Animate the menu elements using GSAP
     gsap.to(circleRef.current, {
       opacity: 0,
       duration: 0.5,
       ease: "power2.in",
       rotate: "180",
-      onComplete: () => setMenuVisible(false),
+      onComplete: () => {
+        setMenuVisible(false); // Hide the menu
+        onMenuToggle(false); // Notify the parent that the menu is closed
+      },
     });
+
     gsap.to(mainRef.current, {
       opacity: 0,
       duration: 0.5,
       ease: "power2.in",
-      onComplete: () => setMenuVisible(false),
+      onComplete: () => {
+        // Re-enable scrolling only after the main content animation is done
+        document.body.style.overflow = "auto";
+      },
     });
-    onMenuToggle(false);
-    document.body.style.overflow = "auto";
   };
 
   const handleKeyDown = useCallback(
@@ -99,17 +107,19 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
         </div>
 
         {/* Menu Toggle Icon */}
-        <div className="toggle cursor-pointer flex-shrink-0" onClick={toggleMenu}>
+        <div
+          className="toggle cursor-pointer flex-shrink-0"
+          onClick={toggleMenu}
+        >
           <span className={`toggle-btn ${menuVisible ? "open" : ""}`}></span>
         </div>
-
       </div>
-        {/* Menu */}
-        {menuVisible && (
-          <div ref={mainRef}>
-            <Menu circleRef={circleRef} />
-          </div>
-        )}
+      {/* Menu */}
+      {menuVisible && (
+        <div ref={mainRef}>
+          <Menu circleRef={circleRef} />
+        </div>
+      )}
     </header>
   );
 };

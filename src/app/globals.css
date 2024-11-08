@@ -12,14 +12,52 @@
   box-sizing: border-box;
   font-family: "Inconsolata", monospace;
 }
+/* Global Custom Scrollbar Styles with Blue Gradient */
+*::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+  background-color: #f0f4f8; /* Background color of the scrollbar track */
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #f0f4f8; /* Background color of the scrollbar track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    45deg,
+    #3b82f6,
+    #2e4569
+  ); /* Blue gradient colors */
+  border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    45deg,
+    #2563eb,
+    #1d4ed8,
+    #1e40af
+  ); /* Darker blue gradient on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Optional shadow effect for hover */
+}
 
 html,
 body {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+  min-height: 100%;
+  background: linear-gradient(270deg, #0f172a, #1e293b, #334155);
+  max-height: 100%;
   color: #ffffff;
+  margin: 0; 
+  padding: 0; 
+  overflow-x: hidden;
+}
+
+#main.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  overflow: hidden;
 }
 
 .header {
@@ -30,7 +68,7 @@ body {
 .toggle {
   position: absolute;
   width: 2rem;
-  height: 1.4rem;
+  height: 1.5rem;
   top: 2.25rem;
   right: 2.7rem;
   z-index: 2;
@@ -44,7 +82,7 @@ body {
   top: 0.5rem;
   right: 0;
   width: 1.6rem;
-  height: 2px;
+  height: 3px;
   background: #ffffff;
   transition: all 0.3s ease;
 }
@@ -54,7 +92,7 @@ body {
   position: absolute;
   top: -0.5rem;
   width: 2rem;
-  height: 2px;
+  height: 3px;
   background: #ffffff;
   transition: all 0.3s ease;
 }
@@ -83,35 +121,6 @@ body {
   transform: rotate(-45deg) translate(3px, -6px);
 }
 
-
-#circle {
-  position: absolute;
-  left: -115vh; /* Original left property */
-  top: 50%;
-  transform: translate(0, -50%) rotate(100deg);
-  width: 200vh;
-  height: 200vh;
-  border: 2px solid #3d5a80;
-  border-radius: 50%;
-  transition: all 0.5s ease;
-}
-
-.stripe-container {
-  overflow: hidden;
-}
-
-.stripe {
-  display: flex;
-  position: absolute;
-  top: 50%;
-  left: 70%;
-  transform: translate(0, -50%);
-  width: 60%;
-  height: 80px;
-  transform-origin: -32% 50%;
-  overflow: visible; /* Make sure stripes are visible */
-}
-
 .str1 {
   transform: translate(0, -50%) rotate(-30deg);
 }
@@ -125,82 +134,27 @@ body {
   transform: translate(0, -50%) rotate(30deg);
 }
 
-.first {
-  position: relative;
-  width: 50%;
-  height: 100%;
-}
-
-.smcircle {
-  position: absolute;
-  right: -0.4vw;
-  top: 62%;
-  transform: translate(0, -50%);
-  width: 0.5vw;
-  height: 0.5vw;
-  background-color: #98c1d9;
-  border-radius: 50%;
-}
-
-.sec {
-  padding-left: 50px;
-  width: 50%;
-  height: 100%;
-}
-
-.sec h4 {
-  font-size: 5vw;
-  color: #ffffff;
-  opacity: 1;
-  transition: opacity 0.5s;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  width: 80%;
-}
-
-.sec .title {
-  display: inline-block;
-  font-weight: 600;
-  color: #ffffff;
-  opacity: 1;
-  transition: opacity 0.5s;
-}
-
-
 .sec.active h4,
 .sec.active .title {
   opacity: 1;
 }
 
-#panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  right: 3%;
-  top: 50%;
-  transform: translate(0, -50%);
-  width: 5%;
-  height: 20%;
+.container {
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.mncircle {
-  border-radius: 50%;
-  width: 1vw;
-  height: 1vw;
-  opacity: 0.05;
-  background-color: #98c1d9;
-  cursor: pointer;
+.hidden-content {
+  opacity: 0;
+  transform: translateY(20px); /* Slide down effect */
 }
 
-.mncircle:hover {
-  opacity: 0.4;
+@layer base{
+  .hero-ring{
+    @apply absolute inset-0   border-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-emerald-300/5 shadow-[0_0_80px_inset] shadow-emerald-300/5
+  }
 }
 
 /* Media Queries for Responsiveness */
-
-/* For tablets and smaller laptops */
 @media (max-width: 1024px) {
   #circle {
     width: 150vh;
@@ -241,7 +195,7 @@ body {
   #circle {
     width: 120vh;
     height: 120vh;
-    left: -7  0vh; /* Adjust positioning for smaller screens */
+    left: -7 0vh; /* Adjust positioning for smaller screens */
   }
 
   .stripe {
